@@ -1,0 +1,299 @@
+---
+// src/components/FAQ.astro
+
+const preguntas = [
+  {
+    pregunta: "¿Cuánto tiempo tardan en responder mi cotización?",
+    respuesta: "Respondemos en menos de 2 horas hábiles después de recibir tu solicitud. Si es una urgencia, escribenos por WhatsApp y priorizamos tu caso.",
+  },
+  {
+    pregunta: "¿Hacen trabajos en todo Lima Metropolitana?",
+    respuesta: "Sí, cubrimos Miraflores, San Isidro, Surco, La Molina, San Borja, Lince, Jesús María, Magdalena, Pueblo Libre, San Miguel, Barranco, Chorrillos y distritos aledaños. Contáctanos para confirmar cobertura en tu zona.",
+  },
+  {
+    pregunta: "¿Cómo sé cuánto va a costar el servicio antes de contratar?",
+    respuesta: "Te damos un presupuesto sin costo ni compromiso. Un técnico evalúa el trabajo y te envía el precio exacto antes de iniciar. Sin cargos ocultos.",
+  },
+  {
+    pregunta: "¿Trabajan los fines de semana y feriados?",
+    respuesta: "Atendemos de lunes a sábado de 7:00 a.m. a 10:00 p.m. Los domingos y feriados trabajamos previa coordinación. No aplicamos recargos por emergencias.",
+  },
+  {
+    pregunta: "¿Ofrecen garantía por los trabajos realizados?",
+    respuesta: "Sí, todos nuestros servicios tienen garantía. Respalda cada trabajo con factura o boleta. Si algo no queda bien, lo corregimos sin costo adicional dentro del período acordado.",
+  },
+  {
+    pregunta: "¿Atienden emergencias el mismo día?",
+    respuesta: "Sí, tenemos disponibilidad para emergencias de gasfitería y electricidad el mismo día. Escríbenos por WhatsApp y coordinamos de inmediato.",
+  },
+  {
+    pregunta: "¿Tienen RUC y emiten boleta o factura?",
+    respuesta: "Sí, contamos con RUC activo y emito boletas y facturas electrónicas. Ideal para empresas, condominios y colegios que necesitan comprobantes para su contabilidad.",
+  },
+  {
+    pregunta: "¿Qué incluye el servicio de mantenimiento preventivo para edificios?",
+    respuesta: "Armamos un plan a medida: revisión periódica de instalaciones eléctricas, sanitarias, pintura, soldadura y estructuras. Un solo contrato, un solo equipo. Solicita una propuesta sin compromiso.",
+  },
+];
+
+// Objeto para Schema.org FAQPage
+const schemaFAQ = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": preguntas.map((p) => ({
+    "@type": "Question",
+    "name": p.pregunta,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": p.respuesta,
+    },
+  })),
+};
+---
+
+<section class="faq" id="faq" aria-label="Preguntas frecuentes">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">FAQ</p>
+      <h2 class="section-title">Preguntas frecuentes</h2>
+      <p class="section-subtitle">
+        Resolvemos tus dudas antes de contratar. Si no encuentras lo que buscas, escríbenos.
+      </p>
+    </div>
+
+    <div class="faq-list" role="list">
+      {preguntas.map((item, index) => (
+        <details class="faq-item" role="listitem">
+          <summary class="faq-question">
+            <span class="faq-number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <span class="faq-question-text">{item.pregunta}</span>
+            <span class="faq-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-answer">
+            <p>{item.respuesta}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <div class="faq-cta">
+      <p class="faq-cta-text">¿Aún tienes preguntas?</p>
+      <a
+        href="https://wa.me/51939686476?text=Hola, tengo una duda sobre sus servicios antes de contratar."
+        class="btn-primary"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-gtm-event="whatsapp_click"
+        data-gtm-source="faq"
+        aria-label="Consultar por WhatsApp"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 2.108.555 4.105 1.528 5.843L.057 23.997l6.304-1.654C8.052 23.392 9.987 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6c-1.82 0-3.59-.507-5.115-1.466l-.366-.218-3.793.994.999-3.688-.237-.382A9.569 9.569 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6S21.6 6.698 21.6 12s-4.298 9.6-9.6 9.6z"/>
+        </svg>
+        Escríbenos
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Schema.org FAQPage JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify(schemaFAQ)} />
+
+<style>
+  .faq {
+    padding: 80px 0;
+    background: #EEF2F7;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .section-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #F5A623;
+    margin: 0 0 12px;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .section-subtitle {
+    font-size: 1.05rem;
+    color: #6B7280;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Lista de preguntas */
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Cada ítem expandible */
+  .faq-item {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .faq-item[open] {
+    border-color: #1B3A6B;
+    box-shadow: 0 4px 20px rgba(27, 58, 107, 0.08);
+  }
+
+  /* Pregunta (summary) */
+  .faq-question {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Eliminar el marcador nativo de details/summary */
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+  .faq-question::marker {
+    display: none;
+    content: "";
+  }
+
+  .faq-number {
+    font-size: 12px;
+    font-weight: 700;
+    color: #9CA3AF;
+    min-width: 24px;
+    letter-spacing: 0.02em;
+  }
+
+  .faq-question-text {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.5;
+  }
+
+  .faq-icon {
+    flex-shrink: 0;
+    color: #9CA3AF;
+    transition: transform 0.25s ease, color 0.25s ease;
+  }
+
+  .faq-item[open] .faq-icon {
+    transform: rotate(180deg);
+    color: #1B3A6B;
+  }
+
+  /* Respuesta */
+  .faq-answer {
+    padding: 0 22px 20px;
+  }
+
+  .faq-answer p {
+    font-size: 0.95rem;
+    color: #6B7280;
+    line-height: 1.7;
+    margin: 0;
+    max-width: 640px;
+  }
+
+  /* CTA inferior */
+  .faq-cta {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid #E5E7EB;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .faq-cta-text {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #F5A623;
+    color: #412402;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 13px 26px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 16px rgba(245, 166, 35, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(245, 166, 35, 0.4);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .faq { padding: 56px 0; }
+    .faq-question { padding: 14px 16px; gap: 10px; }
+    .faq-answer { padding: 0 16px 16px; }
+    .faq-number { display: none; }
+    .faq-question-text { font-size: 0.95rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-icon { transition: none; }
+    .btn-primary:hover { transform: none; }
+  }
+</style>
+
+<script>
+  // Tracking GTM para clicks al CTA
+  document.querySelector('[data-gtm-event="whatsapp_click"]')?.addEventListener('click', () => {
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: 'whatsapp_click',
+        whatsapp_source: 'faq'
+      });
+    }
+  });
+</script>

@@ -1,0 +1,361 @@
+---
+// src/components/Clientes.astro
+import { Image } from 'astro:assets';
+
+type TipoCliente = 'edificio' | 'colegio' | 'empresa';
+
+interface ClienteConLogo {
+  tipo: 'con-logo';
+  logo: string;        // ruta en /public/images/clientes/
+  nombre: string;      // nombre real del cliente
+  tipoCliente: TipoCliente;
+  distrito: string;
+}
+
+interface ClienteGenerico {
+  tipo: 'generico';
+  tipoCliente: TipoCliente;
+  distrito: string;
+}
+
+type Cliente = ClienteConLogo | ClienteGenerico;
+
+/**
+ * ARRAY DE CLIENTES
+ * ----------------
+ * Para agregar un cliente nuevo, solo añade un objeto aquí.
+ * 
+ * CON LOGO (cuando ya tienes permiso explícito):
+ *   { tipo: 'con-logo', logo: '/images/clientes/mi-logo.png', nombre: 'Nombre Real', tipoCliente: 'edificio'|'colegio'|'empresa', distrito: 'Distrito' }
+ * 
+ * SIN LOGO (genérico, sin identificar):
+ *   { tipo: 'generico', tipoCliente: 'edificio'|'colegio'|'empresa', distrito: 'Distrito' }
+ * 
+ * Para migrar de genérico → con logo: solo cambia tipo a 'con-logo' y agrega logo + nombre.
+ */
+const clientes: Cliente[] = [
+  // ─── CLIENTES CON LOGO (con permiso explícito) ─────────────────────────
+  // Ejemplo (reemplazar con clientes reales cuando tengas autorización):
+  // {
+  //   tipo: 'con-logo',
+  //   logo: '/images/clientes/logo-ejemplo.png',
+  //   nombre: 'Ejemplo SAC',
+  //   tipoCliente: 'empresa',
+  //   distrito: 'San Isidro',
+  // },
+
+  // ─── CLIENTES SIN LOGO (modo genérico) ─────────────────────────────────
+  {
+    tipo: 'generico',
+    tipoCliente: 'edificio',
+    distrito: 'Miraflores',
+  },
+  {
+    tipo: 'generico',
+    tipoCliente: 'edificio',
+    distrito: 'San Isidro',
+  },
+  {
+    tipo: 'generico',
+    tipoCliente: 'edificio',
+    distrito: 'Surco',
+  },
+  {
+    tipo: 'generico',
+    tipoCliente: 'edificio',
+    distrito: 'La Molina',
+  },
+  {
+    tipo: 'generico',
+    tipoCliente: 'colegio',
+    distrito: 'San Borja',
+  },
+  {
+    tipo: 'generico',
+    tipoCliente: 'colegio',
+    distrito: 'Surco',
+  },
+  {
+    tipo: 'generico',
+    tipoCliente: 'empresa',
+    distrito: 'San Isidro',
+  },
+  {
+    tipo: 'generico',
+    tipoCliente: 'empresa',
+    distrito: 'Surco',
+  },
+];
+
+const etiquetaTipo: Record<TipoCliente, string> = {
+  edificio: 'Edificio residencial',
+  colegio: 'Colegio',
+  empresa: 'Empresa / Oficina',
+};
+---
+
+<section class="clientes" id="clientes" aria-label="Clientes que confían en nosotros">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">Confianza institucional</p>
+      <h2 class="section-title">Empresas y edificios que ya confían en nosotros</h2>
+      <p class="section-subtitle">
+        Administradores de edificios, colegios y empresas nos eligen para su mantenimiento.
+        Estos son algunos de los clientes con los que trabajamos.
+      </p>
+    </div>
+
+    <div class="clientes-grid">
+      {clientes.map((cliente) => (
+        <article class="cliente-card">
+          {cliente.tipo === 'con-logo' ? (
+            <>
+              <div class="cliente-logo-wrapper">
+                <Image
+                  src={cliente.logo}
+                  alt={`Logo de ${cliente.nombre}`}
+                  class="cliente-logo"
+                  width={160}
+                  height={80}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <p class="cliente-nombre">{cliente.nombre}</p>
+            </>
+          ) : (
+            <>
+              <div class="cliente-icono-wrapper">
+                {cliente.tipoCliente === 'edificio' && (
+                  <svg
+                    class="cliente-icono"
+                    viewBox="0 0 64 64"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <rect x="8" y="20" width="48" height="40" rx="2" stroke="currentColor" stroke-width="2.5" fill="none" />
+                    <rect x="20" y="8" width="24" height="16" rx="2" stroke="currentColor" stroke-width="2.5" fill="none" />
+                    <line x1="20" y1="32" x2="28" y2="32" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <line x1="20" y1="40" x2="28" y2="40" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <line x1="36" y1="32" x2="44" y2="32" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <line x1="36" y1="40" x2="44" y2="40" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <line x1="28" y1="48" x2="36" y2="48" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <rect x="28" y="52" width="8" height="8" rx="1" fill="currentColor" opacity="0.3" />
+                  </svg>
+                )}
+                {cliente.tipoCliente === 'colegio' && (
+                  <svg
+                    class="cliente-icono"
+                    viewBox="0 0 64 64"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path d="M32 4L4 20v4h56v-4L32 4z" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linejoin="round" />
+                    <rect x="12" y="28" width="12" height="32" rx="2" stroke="currentColor" stroke-width="2.5" fill="none" />
+                    <rect x="40" y="28" width="12" height="32" rx="2" stroke="currentColor" stroke-width="2.5" fill="none" />
+                    <rect x="26" y="36" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2" fill="none" />
+                    <line x1="32" y1="40" x2="32" y2="44" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <line x1="30" y1="42" x2="34" y2="42" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <path d="M18 28v-4h28v4" stroke="currentColor" stroke-width="2" fill="none" />
+                  </svg>
+                )}
+                {cliente.tipoCliente === 'empresa' && (
+                  <svg
+                    class="cliente-icono"
+                    viewBox="0 0 64 64"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <rect x="6" y="16" width="52" height="44" rx="3" stroke="currentColor" stroke-width="2.5" fill="none" />
+                    <rect x="18" y="4" width="28" height="16" rx="3" stroke="currentColor" stroke-width="2.5" fill="none" />
+                    <line x1="18" y1="30" x2="28" y2="30" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <line x1="18" y1="38" x2="28" y2="38" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <line x1="36" y1="30" x2="46" y2="30" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <line x1="36" y1="38" x2="46" y2="38" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <line x1="18" y1="46" x2="46" y2="46" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <rect x="28" y="50" width="8" height="10" rx="1" fill="currentColor" opacity="0.3" />
+                  </svg>
+                )}
+              </div>
+              <p class="cliente-etiqueta">
+                {etiquetaTipo[cliente.tipoCliente]} · {cliente.distrito}
+              </p>
+            </>
+          )}
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .clientes {
+    padding: 80px 0;
+    background: #FFFFFF;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .section-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #F5A623;
+    margin: 0 0 12px;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .section-subtitle {
+    font-size: 1.05rem;
+    color: #6B7280;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Grid de clientes */
+  .clientes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;
+  }
+
+  /* Cada tarjeta de cliente */
+  .cliente-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 16px 20px;
+    background: #F7F8FA;
+    border: 1px solid #E5E7EB;
+    border-radius: 14px;
+    min-height: 180px;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    text-align: center;
+  }
+
+  .cliente-card:hover {
+    border-color: #1B3A6B;
+    box-shadow: 0 6px 24px rgba(27, 58, 107, 0.08);
+    transform: translateY(-2px);
+  }
+
+  /* ── VERSIÓN CON LOGO ── */
+  .cliente-logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 80px;
+    margin-bottom: 12px;
+  }
+
+  .cliente-logo {
+    max-width: 140px;
+    max-height: 80px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .cliente-nombre {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* ── VERSIÓN GENÉRICA (SIN LOGO) ── */
+  .cliente-icono-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 80px;
+    margin-bottom: 12px;
+  }
+
+  .cliente-icono {
+    width: 56px;
+    height: 56px;
+    color: #9CA3AF;
+    transition: color 0.2s;
+  }
+
+  .cliente-card:hover .cliente-icono {
+    color: #1B3A6B;
+  }
+
+  .cliente-etiqueta {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .clientes {
+      padding: 56px 0;
+    }
+
+    .clientes-grid {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+    }
+
+    .cliente-card {
+      padding: 20px 12px 16px;
+      min-height: 150px;
+    }
+
+    .cliente-logo-wrapper,
+    .cliente-icono-wrapper {
+      height: 64px;
+    }
+
+    .cliente-logo {
+      max-width: 110px;
+      max-height: 64px;
+    }
+
+    .cliente-icono {
+      width: 44px;
+      height: 44px;
+    }
+
+    .cliente-nombre,
+    .cliente-etiqueta {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cliente-card:hover {
+      transform: none;
+    }
+  }
+</style>

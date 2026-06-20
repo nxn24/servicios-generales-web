@@ -1,0 +1,198 @@
+---
+// src/components/Servicios.astro
+const WA_NUMBER = "51939686476";
+
+const servicios = [
+  {
+    icono: "🖌️",
+    titulo: "Pintura",
+    descripcion: "Casas, departamentos, oficinas y negocios. Acabados de primera con garantía.",
+    keywords: ["Interiores", "Exteriores", "Textura", "Empaste"],
+    mensaje: "Hola, necesito cotizar un servicio de pintura. ¿Me pueden ayudar?",
+  },
+  {
+    icono: "🔧",
+    titulo: "Gasfitería",
+    descripcion: "Instalaciones, reparaciones y emergencias. Atendemos el mismo día.",
+    keywords: ["Tuberías", "Termas", "Filtración", "Emergencias"],
+    mensaje: "Hola, necesito un gasfitero. ¿Tienen disponibilidad hoy?",
+  },
+  {
+    icono: "⚡",
+    titulo: "Electricidad",
+    descripcion: "Instalaciones residenciales y comerciales. Certificados y con garantía.",
+    keywords: ["Tableros", "Tomacorrientes", "Iluminación", "Industrial"],
+    mensaje: "Hola, necesito un electricista. ¿Me pueden dar un presupuesto?",
+  },
+  {
+    icono: "🔩",
+    titulo: "Soldadura",
+    descripcion: "Rejas, estructuras metálicas, puertas y reparaciones en metal.",
+    keywords: ["Rejas", "Estructuras", "Puertas", "Mig/Tig"],
+    mensaje: "Hola, necesito un servicio de soldadura. ¿Pueden cotizarme?",
+  },
+  {
+    icono: "🏗️",
+    titulo: "Remodelaciones",
+    descripcion: "Transformamos tu espacio. Baños, cocinas, ambientes completos.",
+    keywords: ["Baños", "Cocinas", "Drywall", "Enchapado"],
+    mensaje: "Hola, quiero consultar sobre una remodelación. ¿Pueden orientarme?",
+  },
+  {
+    icono: "🔍",
+    titulo: "Mantenimiento preventivo",
+    descripcion: "Contratos para edificios, colegios y empresas. Un solo proveedor.",
+    keywords: ["Edificios", "Empresas", "Colegios", "Contrato anual"],
+    mensaje: "Hola, somos una empresa y necesitamos contratar servicios de mantenimiento. ¿Tienen planes?",
+  },
+];
+---
+
+<section id="servicios" class="servicios" aria-label="Nuestros servicios">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">Lo que hacemos</p>
+      <h2 class="section-title">¿Qué necesitas hoy?</h2>
+      <p class="section-subtitle">
+        Un solo equipo para todos tus servicios. Sin buscar múltiples proveedores.
+      </p>
+    </div>
+
+    <div class="servicios-grid">
+      {servicios.map((s) => {
+        const waLink = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(s.mensaje)}`;
+        return (
+          <article class="servicio-card">
+            <div class="servicio-icon" aria-hidden="true">{s.icono}</div>
+            <h3 class="servicio-titulo">{s.titulo}</h3>
+            <p class="servicio-desc">{s.descripcion}</p>
+            <div class="servicio-tags" aria-label={`Incluye: ${s.keywords.join(', ')}`}>
+              {s.keywords.map(k => <span class="tag">{k}</span>)}
+            </div>
+            <a
+              href={waLink}
+              class="servicio-cta"
+              target="_blank"
+              rel="noopener noreferrer"
+              data-gtm-event="whatsapp_click"
+              data-gtm-source={`servicio_${s.titulo.toLowerCase()}`}
+              aria-label={`Consultar precio de ${s.titulo}`}
+            >
+              Consultar precio →
+            </a>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .servicios {
+    padding: 80px 0;
+    background: #EEF2F7;
+  }
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .section-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #F5A623;
+    margin: 0 0 12px;
+  }
+  .section-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+  }
+  .section-subtitle {
+    font-size: 1.05rem;
+    color: #6B7280;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .servicio-card {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .servicio-card:hover {
+    border-color: #1B3A6B;
+    box-shadow: 0 8px 32px rgba(27, 58, 107, 0.1);
+    transform: translateY(-3px);
+  }
+
+  .servicio-icon {
+    font-size: 2.25rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .servicio-titulo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 10px;
+  }
+  .servicio-desc {
+    font-size: 0.95rem;
+    color: #6B7280;
+    line-height: 1.6;
+    margin: 0 0 16px;
+    flex-grow: 1;
+  }
+  .servicio-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    color: #185FA5;
+    background: #E6F1FB;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .servicio-cta {
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1B3A6B;
+    text-decoration: none;
+    border: 1.5px solid #1B3A6B;
+    padding: 9px 18px;
+    border-radius: 8px;
+    transition: background 0.15s, color 0.15s;
+    align-self: flex-start;
+  }
+  .servicio-cta:hover {
+    background: #1B3A6B;
+    color: #FFFFFF;
+  }
+</style>

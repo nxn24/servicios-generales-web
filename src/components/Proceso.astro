@@ -1,0 +1,262 @@
+---
+// src/components/Proceso.astro
+const WA_NUMBER = "51939686476";
+
+const pasos = [
+  {
+    numero: "01",
+    titulo: "Cuéntanos qué necesitas",
+    descripcion: "Escríbenos por WhatsApp describiendo tu problema o proyecto. Adjunta fotos si puedes —nos ayuda a darte un presupuesto más preciso.",
+  },
+  {
+    numero: "02",
+    titulo: "Recibe tu cotización gratis",
+    descripcion: "Te enviamos el presupuesto detallado sin compromiso en menos de 2 horas. Sin cargos ocultos.",
+  },
+  {
+    numero: "03",
+    titulo: "Coordinamos la visita",
+    descripcion: "Aprobado el presupuesto, acordamos el día y horario que mejor te quede. Trabajamos de lunes a sábado.",
+  },
+  {
+    numero: "04",
+    titulo: "Ejecutamos el servicio",
+    descripcion: "Nuestro equipo realiza el trabajo con profesionalismo, limpieza y cuidando cada detalle.",
+  },
+  {
+    numero: "05",
+    titulo: "Garantía y seguimiento",
+    descripcion: "Te entregamos el trabajo terminado con garantía. Si algo no está bien, lo corregimos sin costo.",
+  },
+];
+---
+
+<section class="proceso" id="proceso" aria-label="Cómo trabajamos">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">Cómo funciona</p>
+      <h2 class="section-title">Así de fácil trabajamos</h2>
+      <p class="section-subtitle">
+        Desde tu primer mensaje hasta la garantía final. Sin vueltas, sin letra chica.
+      </p>
+    </div>
+
+    <div class="proceso-timeline" role="list">
+      {pasos.map((paso, index) => (
+        <div class="proceso-step" role="listitem">
+          <div class="step-left">
+            <div class="step-number" aria-hidden="true">{paso.numero}</div>
+            {index < pasos.length - 1 && <div class="step-line" aria-hidden="true"></div>}
+          </div>
+          <div class="step-content">
+            <h3 class="step-titulo">{paso.titulo}</h3>
+            <p class="step-desc">{paso.descripcion}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="proceso-cta">
+      <p class="proceso-cta-text">¿Listo para empezar?</p>
+      <a
+        href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Hola, quiero empezar con el proceso. Necesito una cotización.")}`}
+        class="btn-primary"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-gtm-event="whatsapp_click"
+        data-gtm-source="proceso"
+        aria-label="Iniciar proceso por WhatsApp"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.374 0 0 5.373 0 12c0 2.108.555 4.105 1.528 5.843L.057 23.997l6.304-1.654C8.052 23.392 9.987 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6c-1.82 0-3.59-.507-5.115-1.466l-.366-.218-3.793.994.999-3.688-.237-.382A9.569 9.569 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6S21.6 6.698 21.6 12s-4.298 9.6-9.6 9.6z"/>
+        </svg>
+        Iniciar proceso
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .proceso {
+    padding: 80px 0;
+    background: #EEF2F7;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+
+  .section-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #F5A623;
+    margin: 0 0 12px;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .section-subtitle {
+    font-size: 1.05rem;
+    color: #6B7280;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* Timeline */
+  .proceso-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .proceso-step {
+    display: flex;
+    gap: 24px;
+  }
+
+  .step-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 48px;
+  }
+
+  .step-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #1B3A6B;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-line {
+    width: 2px;
+    flex: 1;
+    background: linear-gradient(to bottom, #1B3A6B, #E5E7EB);
+    min-height: 24px;
+  }
+
+  .proceso-step:last-child .step-line {
+    display: none;
+  }
+
+  .step-content {
+    padding-bottom: 36px;
+    padding-top: 6px;
+    flex: 1;
+  }
+
+  .proceso-step:last-child .step-content {
+    padding-bottom: 0;
+  }
+
+  .step-titulo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 8px;
+  }
+
+  .step-desc {
+    font-size: 0.95rem;
+    color: #6B7280;
+    line-height: 1.7;
+    margin: 0;
+    max-width: 560px;
+  }
+
+  /* CTA inferior */
+  .proceso-cta {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid #E5E7EB;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .proceso-cta-text {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 0;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #F5A623;
+    color: #412402;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 20px rgba(245, 166, 35, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(245, 166, 35, 0.4);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .proceso { padding: 56px 0; }
+    .proceso-step { gap: 16px; }
+    .step-number { width: 40px; height: 40px; font-size: 12px; }
+    .step-left { min-width: 40px; }
+    .step-content { padding-bottom: 28px; }
+    .step-titulo { font-size: 1rem; }
+    .step-desc { font-size: 0.9rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-primary:hover { transform: none; }
+  }
+</style>
+
+<script>
+  // Tracking GTM para clicks al CTA
+  document.querySelector('[data-gtm-event="whatsapp_click"]')?.addEventListener('click', () => {
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: 'whatsapp_click',
+        whatsapp_source: 'proceso'
+      });
+    }
+  });
+</script>

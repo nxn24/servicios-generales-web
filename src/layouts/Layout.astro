@@ -1,0 +1,104 @@
+---
+// src/layouts/Layout.astro
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title = "Servicios Generales RANISA",
+  description = "Empresa de mantenimiento en Lima. Pintura, gasfitería, electricidad, soldadura y remodelaciones para casas, edificios y empresas. Cotización gratis. Respuesta en 2 horas.",
+  ogImage = "/og-image.jpg",
+} = Astro.props;
+
+const WA_NUMBER   = "51939686476";
+const SCHEMA_SITE = "https://tudominio.com"; // ← reemplazar con dominio real
+
+const schemaLocalBusiness = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "[RANISA]",
+  "description": description,
+  "url": SCHEMA_SITE,
+  "telephone": `+${WA_NUMBER}`,
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Lima",
+    "addressCountry": "PE"
+  },
+  "areaServed": [
+    "Miraflores", "San Isidro", "Surco",
+    "La Molina", "San Borja", "Lince", "Jesús María"
+  ],
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    "opens": "07:00",
+    "closes": "22:00"
+  },
+  "priceRange": "$$",
+  "image": `${SCHEMA_SITE}/og-image.jpg`,
+  "sameAs": [
+    "https://wa.me/" + WA_NUMBER,
+    // "https://www.facebook.com/TUPAGINA",
+    // "https://www.instagram.com/TUUSUARIO"
+  ]
+};
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1B3A6B" />
+
+  <!-- SEO primario -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={SCHEMA_SITE} />
+
+  <!-- Open Graph / Facebook / WhatsApp preview -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content={SCHEMA_SITE} />
+  <meta property="og:title"       content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image"       content={`${SCHEMA_SITE}${ogImage}`} />
+  <meta property="og:locale"      content="es_PE" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image"       content={`${SCHEMA_SITE}${ogImage}`} />
+
+  <!-- Schema.org LocalBusiness -->
+  <script type="application/ld+json" set:html={JSON.stringify(schemaLocalBusiness)} />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!--
+    GOOGLE TAG MANAGER — reemplazar GTM-XXXXXXX con tu ID real
+    Obtenerlo en: tagmanager.google.com
+  -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-XXXXXXX');
+  </script>
+</head>
+
+<body>
+  <!-- GTM noscript fallback -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <slot />
+</body>
+</html>

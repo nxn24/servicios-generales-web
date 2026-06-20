@@ -1,0 +1,201 @@
+---
+// src/components/Nosotros.astro
+const WA_NUMBER = "51939686476";
+
+// Ruta de la imagen del logo (recomendado: 400x400px max, ubicado en /public/images/nosotros/logo.webp)
+const IMG_PATH = '/images/nosotros/logo_ranisa.png';
+const IMG_ALT = 'Logo de RANISA';
+---
+
+<section class="nosotros" id="nosotros" aria-label="Sobre nosotros">
+  <div class="container">
+    <div class="nosotros-grid">
+      
+      <!-- BLOQUE IZQUIERDO: Texto -->
+      <div class="nosotros-content">
+        <p class="section-eyebrow">Sobre nosotros</p>
+        <h2 class="section-title">Más de 8 años sirviendo a Lima</h2>
+        <p class="nosotros-text">
+          En RANISA nos dedicamos al mantenimiento general de hogares, edificios y empresas en Lima Metropolitana. 
+          Desde nuestros inicios, hace más de 8 años, hemos trabajado con el compromiso de brindar servicios profesionales, 
+          confiables y con garantía. Sabemos lo importante que es mantener tus espacios en óptimas condiciones, 
+          por eso nos esforzamos en cada proyecto, sin importar su tamaño. Nuestro equipo está conformado por 
+          técnicos especializados en pintura, gasfitería, electricidad, soldadura y remodelaciones, 
+          listos para atenderte con rapidez y calidad.
+        </p>
+        <a
+          href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Hola, quisiera conocer más sobre RANISA y sus servicios.")}`}
+          class="btn-primary"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-gtm-event="whatsapp_click"
+          data-gtm-source="nosotros"
+          aria-label="Conocer más por WhatsApp"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12 0C5.374 0 0 5.373 0 12c0 2.108.555 4.105 1.528 5.843L.057 23.997l6.304-1.654C8.052 23.392 9.987 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6c-1.82 0-3.59-.507-5.115-1.466l-.366-.218-3.793.994.999-3.688-.237-.382A9.569 9.569 0 012.4 12c0-5.302 4.298-9.6 9.6-9.6S21.6 6.698 21.6 12s-4.298 9.6-9.6 9.6z"/>
+          </svg>
+          Conocer más
+        </a>
+      </div>
+
+      <!-- BLOQUE DERECHO: Imagen (logo) -->
+      <div class="nosotros-image-wrapper">
+        <img
+          src={IMG_PATH}
+          alt={IMG_ALT}
+          class="nosotros-image"
+          width="400"
+          height="400"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .nosotros {
+    padding: 80px 0;
+    background: #FFFFFF;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .nosotros-grid {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 56px;
+  }
+
+  /* ── BLOQUE IZQUIERDO: Texto ── */
+  .nosotros-content {
+    flex: 1;
+    max-width: 50%;
+  }
+
+  .section-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #F5A623;
+    margin: 0 0 12px;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 20px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .nosotros-text {
+    font-size: 1rem;
+    color: #6B7280;
+    line-height: 1.8;
+    margin: 0 0 32px;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #F5A623;
+    color: #412402;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 20px rgba(245, 166, 35, 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(245, 166, 35, 0.4);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  /* ── BLOQUE DERECHO: Imagen ── */
+  .nosotros-image-wrapper {
+    flex: 1;
+    max-width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nosotros-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px; /* 8px para logo */
+    box-shadow: 0 8px 32px rgba(27, 58, 107, 0.1);
+    object-fit: contain;
+  }
+
+  /* ── RESPONSIVE: Tablet y Mobile ── */
+  @media (max-width: 900px) {
+    .nosotros-grid {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .nosotros-content {
+      max-width: 100%;
+    }
+
+    .nosotros-image-wrapper {
+      max-width: 100%;
+    }
+
+    .nosotros-image {
+      max-width: 300px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .nosotros {
+      padding: 56px 0;
+    }
+
+    .nosotros-grid {
+      gap: 32px;
+    }
+
+    .nosotros-image {
+      max-width: 240px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-primary:hover { transform: none; }
+  }
+</style>
+
+<script>
+  // Tracking GTM para clicks al CTA
+  document.querySelector('[data-gtm-event="whatsapp_click"]')?.addEventListener('click', () => {
+    if (typeof window !== 'undefined' && (window as any).dataLayer) {
+      (window as any).dataLayer.push({
+        event: 'whatsapp_click',
+        whatsapp_source: 'nosotros'
+      });
+    }
+  });
+</script>
